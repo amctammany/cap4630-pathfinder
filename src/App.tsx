@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import "./App.css";
-import level from "./levels/example";
+import level from "./levels/basic";
 import { World } from "./lib/World";
 import { Renderer } from "./Renderer";
 import { VGraph } from "./lib/VGraph";

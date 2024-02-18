@@ -1,10 +1,9 @@
+import { Polygon } from "./Polygon";
 import { Vertex, VertexType } from "./Vertex";
 import { World } from "./World";
 
-type Line = [VertexType, VertexType];
 type LineSegment = [Vertex, Vertex];
 function checkCollision(a: Vertex, b: Vertex, c: Vertex, d: Vertex) {
-  //let res = true;
   const denom = (b.x - a.x) * (d.y - c.y) - (b.y - a.y) * (d.x - c.x);
   if (denom === 0) return false;
   const num1 = (a.y - c.y) * (d.x - c.x) - (a.x - c.x) * (d.y - c.y);
@@ -12,15 +11,15 @@ function checkCollision(a: Vertex, b: Vertex, c: Vertex, d: Vertex) {
   if (num1 === 0 || num2 === 0) return false;
   const r = num1 / denom;
   const s = num2 / denom;
-  //console.log("Check Collision", { a, b, c, d, denom, num1, num2, r, s, res });
-  //if (res === false) return res;
   return r > 0 && r < 1 && s > 0 && s < 1;
 }
 
 class Node {
+  parent?: Polygon;
   vertex: Vertex;
-  constructor(vertex: Vertex) {
+  constructor(vertex: Vertex, parent?: Polygon) {
     this.vertex = vertex;
+    this.parent = parent;
   }
 }
 class Edge {
@@ -40,7 +39,7 @@ export class VGraph {
     const edges: LineSegment[] = [];
     world.polygons.forEach((polygon) => {
       const nodes = polygon.points.map((pt) => {
-        const node = this.addNode(pt);
+        const node = this.addNode(pt, polygon);
         return node;
       });
       nodes.forEach((node, i) => {
@@ -53,14 +52,12 @@ export class VGraph {
       edges.push(...polygon.edges);
     });
     this.calculateAdjacency(edges);
-    //this.nodes = [];
-    //this.edges = [];
   }
   calculateAdjacency(edges: LineSegment[]) {
-    console.log(edges);
     this.nodes.forEach((current) => {
       this.nodes.forEach((next) => {
         if (current === next) return;
+        if (current.parent && current.parent === next.parent) return;
         const r = edges.every(
           (edge) => !checkCollision(current.vertex, next.vertex, ...edge)
         );
@@ -74,15 +71,17 @@ export class VGraph {
     return edge;
     //return node;
   }
-  addNode(vertex: Vertex) {
-    const node = new Node(vertex);
+  addNode(vertex: Vertex, parent?: Polygon) {
+    const node = new Node(vertex, parent);
     this.nodes.push(node);
     return node;
   }
   render(ctx: CanvasRenderingContext2D) {
+    ctx.strokeStyle = "black";
     this.edges.forEach((edge) => {
+      ctx.strokeStyle = "black";
       ctx.beginPath();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1;
       const v1 = edge.nodes[0].vertex;
       const v2 = edge.nodes[1].vertex;
       ctx.moveTo(v1.x, v1.y);

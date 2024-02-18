@@ -5,6 +5,8 @@ import { Vertex, VertexType } from "./Vertex";
 const pointWidth = 20;
 const pointHeight = 20;
 function renderPoint(ctx: CanvasRenderingContext2D, point: Vertex) {
+  ctx.beginPath();
+  ctx.strokeStyle = "red";
   ctx.fillRect(
     point.x - pointWidth / 2,
     point.y - pointHeight / 2,
@@ -14,12 +16,15 @@ function renderPoint(ctx: CanvasRenderingContext2D, point: Vertex) {
 }
 
 function renderPolygon(ctx: CanvasRenderingContext2D, polygon: Polygon) {
-  ctx.fillStyle = "black";
+  ctx.beginPath();
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "red";
   polygon.points.forEach((pt, i) => {
     if (i === 0) ctx.moveTo(polygon.points[0].x, polygon.points[0].y);
     ctx.lineTo(pt.x, pt.y);
   });
   ctx.lineTo(polygon.points[0].x, polygon.points[0].y);
+  ctx.closePath();
   ctx.stroke();
 }
 export class World {
