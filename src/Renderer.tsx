@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { World } from "./lib/World";
+import { VGraph } from "./lib/VGraph";
 
 export const Renderer = ({
   world,
@@ -13,10 +14,11 @@ export const Renderer = ({
     const context = canvas?.getContext("2d");
     if (!context) return;
     //Our first draw
-    console.log(world);
     //context.fillStyle = "#000000";
     //context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    const visGraph = new VGraph(world);
     world.render(context);
+    visGraph.render(context);
   }, [world]);
   return (
     <canvas
