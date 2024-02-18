@@ -1,6 +1,7 @@
 import { LevelType } from "../lib/Level";
 import { VertexType } from "../lib/Vertex";
 
+/*
 const polygons: VertexType[][] = [
   [
     [220, 616],
@@ -35,7 +36,7 @@ const polygons: VertexType[][] = [
   [
     [118, 517],
     [245, 517],
-    [245, 577],
+    [245, 557],
     [118, 557],
   ],
   [
@@ -57,27 +58,75 @@ const polygons: VertexType[][] = [
     [182, 574],
   ],
 ];
-
+const origin = { x: 90, y: 500 };
+const scale = { x: 2, y: 3 };
+const res = polygons.map((pts) =>
+  pts.map(
+    ([x, y]) =>
+      [(x - origin.x) * scale.x, (y - origin.y) * scale.y] as VertexType
+  )
+);
+console.log({ res });
+**/
+const polygonPoints: VertexType[][] = [
+  [
+    [260, 348],
+    [260, 498],
+    [322, 510],
+    [364, 441],
+  ],
+  [
+    [502, 465],
+    [538, 501],
+    [568, 453],
+    [552, 231],
+  ],
+  [
+    [442, 90],
+    [442, 177],
+    [498, 234],
+    [542, 180],
+    [542, 84],
+    [492, 48],
+  ],
+  [
+    [30, 384],
+    [122, 510],
+    [180, 387],
+    [132, 231],
+    [46, 261],
+  ],
+  [
+    [56, 51],
+    [310, 51],
+    [310, 171],
+    [56, 171],
+  ],
+  [
+    [380, 249],
+    [486, 249],
+    [486, 495],
+    [380, 495],
+  ],
+  [
+    [324, 282],
+    [400, 186],
+    [348, 114],
+  ],
+  [
+    [216, 405],
+    [254, 222],
+    [184, 222],
+  ],
+];
 const width = 600;
-const height = 800;
+const height = 600;
 const start: VertexType = [120, 650];
 const end: VertexType = [380, 560];
-const minX = 100;
-const maxX = 400;
-const minY = 500;
-const maxY = 800;
-const scaleX = (maxX - minX) / width;
-const scaleY = (maxY - minY) / height;
 export default {
   start,
   end,
-  polygons,
-  polygons1: polygons.map((p) =>
-    p.map(([x, y]) => [
-      (width * scaleX * (x - minX)) / width - minX,
-      (height * scaleY * (y - minY)) / height + minY,
-    ])
-  ),
+  polygons: polygonPoints,
   width,
   height,
 } as LevelType;
