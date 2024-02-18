@@ -1,6 +1,6 @@
 import { Level, LevelType } from "./Level";
 import { Polygon } from "./Polygon";
-import { Vertex, VertexType } from "./Vertex";
+import { Vertex } from "./Vertex";
 
 const pointWidth = 20;
 const pointHeight = 20;
@@ -19,6 +19,7 @@ function renderPolygon(ctx: CanvasRenderingContext2D, polygon: Polygon) {
   ctx.beginPath();
   ctx.lineWidth = 3;
   ctx.strokeStyle = "red";
+  ctx.fillStyle = "#f3a";
   polygon.points.forEach((pt, i) => {
     if (i === 0) ctx.moveTo(polygon.points[0].x, polygon.points[0].y);
     ctx.lineTo(pt.x, pt.y);
@@ -26,6 +27,7 @@ function renderPolygon(ctx: CanvasRenderingContext2D, polygon: Polygon) {
   ctx.lineTo(polygon.points[0].x, polygon.points[0].y);
   ctx.closePath();
   ctx.stroke();
+  ctx.fill();
 }
 export class World {
   height: number = 500;
@@ -44,7 +46,6 @@ export class World {
     this.start = new Vertex([0, 0]);
     this.finish = new Vertex([300, 300]);
   }
-  //loadLevel(polygons: VertexType[][], start: VertexType, finish: VertexType) {
   loadLevel(level: Level) {
     this.width = level.width;
     this.height = level.height;

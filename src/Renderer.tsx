@@ -10,12 +10,8 @@ export const Renderer = ({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    //if (canvas == null) return;
     const context = canvas?.getContext("2d");
     if (!context) return;
-    //Our first draw
-    //context.fillStyle = "#000000";
-    //context.fillRect(0, 0, context.canvas.width, context.canvas.height);
     const visGraph = new VGraph(world);
     world.render(context);
     visGraph.render(context);

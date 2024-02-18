@@ -1,5 +1,5 @@
 import { Polygon } from "./Polygon";
-import { Vertex, VertexType } from "./Vertex";
+import { Vertex } from "./Vertex";
 import { World } from "./World";
 
 type LineSegment = [Vertex, Vertex];
@@ -69,7 +69,6 @@ export class VGraph {
     const edge = new Edge(n1, n2);
     this.edges.push(edge);
     return edge;
-    //return node;
   }
   addNode(vertex: Vertex, parent?: Polygon) {
     const node = new Node(vertex, parent);
