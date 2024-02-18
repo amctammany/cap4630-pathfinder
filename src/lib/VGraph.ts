@@ -1,3 +1,4 @@
+import { Graph } from "./Graph";
 import { Polygon } from "./Polygon";
 import { Vertex } from "./Vertex";
 import { World } from "./World";
@@ -13,27 +14,9 @@ function checkCollision(a: Vertex, b: Vertex, c: Vertex, d: Vertex) {
   const s = num2 / denom;
   return r > 0 && r < 1 && s > 0 && s < 1;
 }
-
-class Node {
-  parent?: Polygon;
-  vertex: Vertex;
-  constructor(vertex: Vertex, parent?: Polygon) {
-    this.vertex = vertex;
-    this.parent = parent;
-  }
-}
-class Edge {
-  nodes: [Node, Node];
-  constructor(v1: Node, v2: Node) {
-    this.nodes = [v1, v2];
-  }
-}
-
-export class VGraph {
-  nodes: Node[] = [];
-  edges: Edge[] = [];
-
+export class VGraph extends Graph<Vertex, Polygon> {
   constructor(world: World) {
+    super();
     this.addNode(world.start);
     this.addNode(world.finish);
     const edges: LineSegment[] = [];
@@ -59,21 +42,11 @@ export class VGraph {
         if (current === next) return;
         if (current.parent && current.parent === next.parent) return;
         const r = edges.every(
-          (edge) => !checkCollision(current.vertex, next.vertex, ...edge)
+          (edge) => !checkCollision(current.value, next.value, ...edge)
         );
         if (r) this.addEdge(current, next);
       });
     });
-  }
-  addEdge(n1: Node, n2: Node) {
-    const edge = new Edge(n1, n2);
-    this.edges.push(edge);
-    return edge;
-  }
-  addNode(vertex: Vertex, parent?: Polygon) {
-    const node = new Node(vertex, parent);
-    this.nodes.push(node);
-    return node;
   }
   render(ctx: CanvasRenderingContext2D) {
     ctx.strokeStyle = "black";
@@ -81,8 +54,8 @@ export class VGraph {
       ctx.strokeStyle = "black";
       ctx.beginPath();
       ctx.lineWidth = 1;
-      const v1 = edge.nodes[0].vertex;
-      const v2 = edge.nodes[1].vertex;
+      const v1 = edge.nodes[0].value;
+      const v2 = edge.nodes[1].value;
       ctx.moveTo(v1.x, v1.y);
       ctx.lineTo(v2.x, v2.y);
       ctx.stroke();
