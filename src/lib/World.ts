@@ -18,8 +18,8 @@ function renderPoint(ctx: CanvasRenderingContext2D, point: Vertex) {
 function renderPolygon(ctx: CanvasRenderingContext2D, polygon: Polygon) {
   ctx.beginPath();
   ctx.lineWidth = 3;
-  ctx.strokeStyle = "red";
-  ctx.fillStyle = "#f3a";
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "#aaa";
   polygon.points.forEach((pt, i) => {
     if (i === 0) ctx.moveTo(polygon.points[0].x, polygon.points[0].y);
     ctx.lineTo(pt.x, pt.y);

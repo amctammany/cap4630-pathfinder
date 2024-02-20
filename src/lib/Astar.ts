@@ -82,10 +82,8 @@ export function Astar<V, P>(
   while (!open.isEmpty()) {
     const current = open.pop();
     if (current?.value === goal) {
-      console.log("success");
       const res = createSolution<V, P>(prev, current);
-      console.log({ res, gScore, fScore, open, prev });
-      return;
+      return res;
     }
     open.remove(current!);
     current?.neighbors.forEach((neighbor) => {
