@@ -7,4 +7,5 @@ To use:
 * Run development server """npm run dev"""
 * Visit localhost:3000 to see demonstration
 
-
+Project is hosted online at 
+[this site]( https://cap4630-pathfinder.vercel.app/ )
