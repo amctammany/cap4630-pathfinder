@@ -1,5 +1,5 @@
 import { Node, Edge, Graph } from "./Graph";
-function d(n1: Node, n2: Node) {
+function d(n1: Node<any, any>, n2: Node<any, any>) {
   return 1;
 }
 const MAX_VALUE = 99999;
