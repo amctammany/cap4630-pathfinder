@@ -121,8 +121,8 @@ const polygonPoints: VertexType[][] = [
 ];
 const width = 600;
 const height = 600;
-const start: VertexType = [20, 200];
-const finish: VertexType = [430, 40];
+const start: VertexType = [70, 480];
+const finish: VertexType = [430, 190];
 export default {
   start,
   finish,
